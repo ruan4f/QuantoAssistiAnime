@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QuantoAssistiAnime.View.NovoAnimeView"
+             Title="Quanto Assisti Anime">
+  <StackLayout Padding="20">
+    
+    <Label Text="Nome"></Label>
+    <Entry Keyboard="Text" Text="{Binding Nome}"></Entry>
+
+    <Label Text="Episódio Atual"></Label>
+    <Entry Keyboard="Numeric" Text="{Binding EpisodioAtual}"></Entry>
+
+    <Label Text="Total de Episódios"></Label>
+    <Entry Keyboard="Numeric" Text="{Binding TotalEpisodios}"></Entry>
+    
+    <Button Text="Salvar" Command="{Binding AdicionarAnimeCommand}"></Button>
+    
+  </StackLayout>
+</ContentPage>

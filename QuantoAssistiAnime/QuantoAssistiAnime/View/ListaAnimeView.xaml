@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QuantoAssistiAnime.View.ListaAnimeView"
+             Title="Quanto Assisti Anime">
+
+  <StackLayout Padding="20">
+
+    <Button Text="Adicionar Novo Anime" Clicked="AdicionarAnime_OnClicked"/>
+
+    <ListView x:Name="ListViewAnimes" ItemsSource="{Binding Animes}"
+                  IsRefreshing="{Binding IsBusy}"
+                  IsPullToRefreshEnabled="True"
+                  RefreshCommand="{Binding RefreshCommand}"
+                  HasUnevenRows="True"
+                  SeparatorColor="Black">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <StackLayout Padding="10">
+
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                  <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto"></RowDefinition>
+                  <RowDefinition Height="Auto"></RowDefinition>
+                  <!--<RowDefinition Height="Auto"></RowDefinition>-->
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" FontAttributes="Bold">Nome: </Label>
+                <Label Grid.Column="1" Grid.Row="0" Text="{Binding Nome}" />
+
+                <Label Grid.Column="0" Grid.Row="1" FontAttributes="Bold">Episódio Atual: </Label>
+                <Label Grid.Column="1" Grid.Row="1" Text="{Binding EpisodioAtual}" />
+
+                <!--<Label Grid.Column="0" Grid.Row="2" FontSize="Medium" FontAttributes="Bold">Data Limite para Registro: </Label>
+                <Label Grid.Column="1" Grid.Row="2" FontSize="Medium" Text="{Binding DataLimiteRegistro}" BackgroundColor="#EEEEEE" />-->
+
+              </Grid>
+
+            </StackLayout>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+
+  </StackLayout>
+</ContentPage>
