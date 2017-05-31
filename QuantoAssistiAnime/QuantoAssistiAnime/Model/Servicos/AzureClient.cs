@@ -14,7 +14,7 @@ namespace QuantoAssistiAnime.Model.Servicos
         private IMobileServiceClient _client;
         private IMobileServiceSyncTable<Anime> _table;
         private const string DbPath = "Anime";
-        private const string ServiceUri = "http://quantoassistianime.azurewebsites.net/";
+        private const string ServiceUri = "http://maratonaxamarininter.azurewebsites.net/";
 
         public AzureClient()
         {
