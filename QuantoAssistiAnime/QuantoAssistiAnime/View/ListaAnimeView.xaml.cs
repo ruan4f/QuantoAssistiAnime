@@ -1,44 +1,31 @@
-﻿using System;
-using QuantoAssistiAnime.Model.Entidades;
-using QuantoAssistiAnime.ViewModel;
+﻿using QuantoAssistiAnime.ViewModels;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace QuantoAssistiAnime.View
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ListaAnimeView : ContentPage
     {
-        private readonly ListaAnimeViewModel _viewModel;
+        private ListaAnimeViewModel ViewModel => BindingContext as ListaAnimeViewModel;
 
         public ListaAnimeView()
         {
             InitializeComponent();
-
-            _viewModel = new ListaAnimeViewModel();
-
-            ListViewAnimes.ItemSelected += ListViewAnimes_ItemSelected;
+            ViewModel?.Load();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            _viewModel.Load();
-
-            BindingContext = _viewModel;
-        }
-
-        private async void AdicionarAnime_OnClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new NovoAnimeView());
+            ViewModel?.Load();
         }
         
-        private async void ListViewAnimes_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void ListViewAnimes_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var selectedAnime = e.SelectedItem as Anime;
-            if (selectedAnime != null)
+            if (e.SelectedItem != null)
             {
-                await Navigation.PushAsync(new DetalheAnimeView(selectedAnime));
-                ListViewAnimes.SelectedItem = null;
+                ViewModel.DetalhaAnimeCommand.Execute(e.SelectedItem);
             }
         }
     }

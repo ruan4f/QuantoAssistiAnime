@@ -1,4 +1,4 @@
-﻿using QuantoAssistiAnime.Model.Servicos;
+﻿using QuantoAssistiAnime.Services;
 using QuantoAssistiAnime.View;
 using Xamarin.Forms;
 
@@ -10,11 +10,8 @@ namespace QuantoAssistiAnime
 
         public App()
         {
-            DependencyService.Register<IMessageService, MessageService>();
-            DependencyService.Register<INavigationService, NavigationService>();
-
             // The root page of your application
-            var content = new ListaAnimeView();
+            var content = new LoginView();
 
             MainPage = new NavigationPage(content);
         }

@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 using Microsoft.WindowsAzure.MobileServices.Sync;
-using QuantoAssistiAnime.Model.Entidades;
+using QuantoAssistiAnime.Model;
 
-namespace QuantoAssistiAnime.Model.Servicos
+namespace QuantoAssistiAnime.Services
 {
     public class AzureClient
     {
         private IMobileServiceClient _client;
         private IMobileServiceSyncTable<Anime> _table;
         private const string DbPath = "Anime";
-        private const string ServiceUri = "http://maratonaxamarininter.azurewebsites.net/";
+        private const string ServiceUri = "https://maratonaxamarininter.azurewebsites.net/";
 
         public AzureClient()
         {
@@ -55,7 +56,7 @@ namespace QuantoAssistiAnime.Model.Servicos
         {
             await _table.UpdateAsync(anime);
         }
-        
+
         public async Task SyncAsync()
         {
             ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
@@ -70,7 +71,28 @@ namespace QuantoAssistiAnime.Model.Servicos
                 if (pushEx.PushResult != null)
                     syncErrors = pushEx.PushResult.Errors;
             }
+
+            // Simple error/conflict handling.
+            if (syncErrors != null)
+            {
+                foreach (var error in syncErrors)
+                {
+                    if (error.OperationKind == MobileServiceTableOperationKind.Update && error.Result != null)
+                    {
+                        //Update failed, reverting to server's copy.
+                        await error.CancelAndUpdateItemAsync(error.Result);
+                    }
+                    else
+                    {
+                        // Discard local change.
+                        await error.CancelAndDiscardItemAsync();
+                    }
+
+                    Debug.WriteLine(@"Error executing sync operation. Item: {0} ({1}). Operation discarded.",
+                        error.TableName, error.Item["id"]);
+                }
+            }
         }
-        
+
     }
 }

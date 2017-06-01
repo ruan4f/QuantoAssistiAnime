@@ -1,18 +1,14 @@
-﻿using QuantoAssistiAnime.Model.Entidades;
-using QuantoAssistiAnime.Model.Servicos;
+﻿using QuantoAssistiAnime.Model;
 using Xamarin.Forms;
 
-namespace QuantoAssistiAnime.ViewModel
+namespace QuantoAssistiAnime.ViewModels
 {
-    public class DetalheAnimeViewModel : ObservableBaseObject
+    public class DetalheAnimeViewModel : BaseViewModel
     {
         private Anime anime;
 
         public DetalheAnimeViewModel(Anime anime)
         {
-            MessageService = DependencyService.Get<IMessageService>();
-            NavigationService = DependencyService.Get<INavigationService>();
-
             ExcluirAnimeCommand = new Command(Excluir);
             AtualizarAnimeCommand = new Command(Atualizar);
 
@@ -71,14 +67,16 @@ namespace QuantoAssistiAnime.ViewModel
         {
             App.AzureClient.UpdateAnime(anime);
 
-            await MessageService.ShowAsync("Dados atualizados com sucesso!");
+            await DisplayAlert("Quanto Assisti Anime", "Dados atualizados com sucesso!", "OK");
         }
 
         private async void Excluir()
         {
             App.AzureClient.DeleteAnime(anime);
 
-            await NavigationService.Voltar();
+            await DisplayAlert("Quanto Assisti Anime", "Anime excluído com sucesso!", "OK");
+
+            await PopAsync();
         }
 
         #endregion

@@ -1,21 +1,23 @@
 ﻿using System.Collections.ObjectModel;
-using QuantoAssistiAnime.Model.Entidades;
-using QuantoAssistiAnime.Model.Servicos;
+using QuantoAssistiAnime.Model;
 using Xamarin.Forms;
 
-namespace QuantoAssistiAnime.ViewModel
+namespace QuantoAssistiAnime.ViewModels
 {
-    public class ListaAnimeViewModel : ObservableBaseObject
+    public class ListaAnimeViewModel : BaseViewModel
     {
 
         public ListaAnimeViewModel()
         {
             RefreshCommand = new Command(Load);
             Animes = new ObservableCollection<Anime>();
-            
+            DetalhaAnimeCommand = new Command<Anime>(ExecuteDetalhaAnimeCommand);
+            AdicionaAnimeCommand = new Command(ExecuteAdicionaAnimeCommand);
         }
         
         public Command RefreshCommand { get; set; }
+        public Command AdicionaAnimeCommand { get; set; }
+        public Command<Anime> DetalhaAnimeCommand { get; }
         public ObservableCollection<Anime> Animes { get; set; }
 
         private bool isBusy;
@@ -63,6 +65,16 @@ namespace QuantoAssistiAnime.ViewModel
                 Animes.Add(item);
             }
             IsBusy = false;
+        }
+
+        private async void ExecuteAdicionaAnimeCommand()
+        {
+            await PushAsync<NovoAnimeViewModel>();
+        }
+
+        private async void ExecuteDetalhaAnimeCommand(Anime anime)
+        {
+            await PushAsync<DetalheAnimeViewModel>(anime);
         }
 
         #endregion

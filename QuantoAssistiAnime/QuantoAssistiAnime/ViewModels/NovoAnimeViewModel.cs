@@ -1,16 +1,12 @@
-﻿using QuantoAssistiAnime.Model.Entidades;
-using QuantoAssistiAnime.Model.Servicos;
+﻿using QuantoAssistiAnime.Model;
 using Xamarin.Forms;
 
-namespace QuantoAssistiAnime.ViewModel
+namespace QuantoAssistiAnime.ViewModels
 {
-    public class NovoAnimeViewModel : ObservableBaseObject
+    public class NovoAnimeViewModel : BaseViewModel
     {
         public NovoAnimeViewModel( )
         {
-            MessageService = DependencyService.Get<IMessageService>();
-            NavigationService = DependencyService.Get<INavigationService>();
-
             AdicionarAnimeCommand = new Command(adicionarAnime);
         }
 
@@ -65,9 +61,9 @@ namespace QuantoAssistiAnime.ViewModel
 
             App.AzureClient.AddAnime(anime);
 
-            await MessageService.ShowAsync("Anime adicionado com Sucesso!");
+            await DisplayAlert("Quanto Assisti Anime", "Anime adicionado com Sucesso!", "OK");
 
-            await NavigationService.Voltar();
+            await PopAsync();
         }
 
         #endregion

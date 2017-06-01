@@ -36,22 +36,26 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="Model\Entidades\Anime.cs" />
-    <Compile Include="Model\Entidades\ObservableBaseObject.cs" />
-    <Compile Include="Model\Servicos\AzureClient.cs" />
-    <Compile Include="Model\Servicos\IMessageService.cs" />
-    <Compile Include="Model\Servicos\INavigationService.cs" />
-    <Compile Include="Model\Servicos\MessageService.cs" />
-    <Compile Include="Model\Servicos\NavigationService.cs" />
+    <Compile Include="Authentication\IAuthenticate.cs" />
+    <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Model\Anime.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\DetalheAnimeViewModel.cs" />
-    <Compile Include="ViewModel\ListaAnimeViewModel.cs" />
-    <Compile Include="ViewModel\NovoAnimeViewModel.cs" />
+    <Compile Include="Services\AzureClient.cs" />
+    <Compile Include="Services\AzureService.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\DetalheAnimeViewModel.cs" />
+    <Compile Include="ViewModels\ListaAnimeViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\NovoAnimeViewModel.cs" />
     <Compile Include="View\DetalheAnimeView.xaml.cs">
       <DependentUpon>DetalheAnimeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ListaAnimeView.xaml.cs">
       <DependentUpon>ListaAnimeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NovoAnimeView.xaml.cs">
       <DependentUpon>NovoAnimeView.xaml</DependentUpon>
@@ -79,6 +83,12 @@
     <Reference Include="Plugin.Connectivity.Abstractions, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xam.Plugin.Connectivity.2.3.0\lib\portable-net45+wp80+win8+wpa81\Plugin.Connectivity.Abstractions.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Plugin.Settings, Version=2.5.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Settings.2.5.8\lib\portable-net45+wp80+win8+wpa81\Plugin.Settings.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Settings.Abstractions, Version=2.5.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Settings.2.5.8\lib\portable-net45+wp80+win8+wpa81\Plugin.Settings.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="SQLitePCLRaw.batteries_green, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a84b7dcfb1391f7f, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SQLitePCLRaw.bundle_green.1.1.5\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\SQLitePCLRaw.batteries_green.dll</HintPath>
@@ -129,10 +139,12 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Authentication\" />
-    <Folder Include="Helpers\" />
-    <Folder Include="Service\" />
+    <EmbeddedResource Include="View\LoginView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

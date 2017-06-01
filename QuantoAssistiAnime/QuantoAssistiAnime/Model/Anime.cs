@@ -1,7 +1,7 @@
 ﻿using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json;
 
-namespace QuantoAssistiAnime.Model.Entidades
+namespace QuantoAssistiAnime.Model
 {
     [DataTable("Anime")]
     public class Anime
