@@ -15,11 +15,11 @@ namespace QuantoAssistiAnime.Services
         private IMobileServiceClient _client;
         private IMobileServiceSyncTable<Anime> _table;
         private const string DbPath = "Anime";
-        private const string ServiceUri = "https://maratonaxamarininter.azurewebsites.net/";
+        private readonly string _serviceUri = Helpers.Constants.ApplicationUrl;
 
         public AzureClient()
         {
-            _client = new MobileServiceClient(ServiceUri);
+            _client = new MobileServiceClient(_serviceUri);
             var store = new MobileServiceSQLiteStore(DbPath);
             store.DefineTable<Anime>();
             _client.SyncContext.InitializeAsync(store);

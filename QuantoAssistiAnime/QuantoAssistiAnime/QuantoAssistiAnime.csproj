@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Authentication\IAuthenticate.cs" />
+    <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Model\Anime.cs" />
     <Compile Include="Model\User.cs" />
