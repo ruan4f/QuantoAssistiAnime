@@ -7,9 +7,8 @@
         <StackLayout 
             HorizontalOptions="Center"
             VerticalOptions="CenterAndExpand">
-            <Label Text="Meu app Social" TextColor="Black" FontSize="Medium"/>
-            <Button Command="{Binding LoginCommand}" Text="Logar Com Facebook"
-                    BackgroundColor="Blue" FontSize="Medium" TextColor="White"/>
+            <Label Text="Meu app Social" FontSize="Medium"/>
+            <Button Command="{Binding LoginCommand}" Text="Logar Com Facebook" FontSize="Medium" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

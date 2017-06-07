@@ -12,7 +12,6 @@ namespace QuantoAssistiAnime.View
         public ListaAnimeView()
         {
             InitializeComponent();
-            ViewModel?.Load();
         }
 
         protected override void OnAppearing()
